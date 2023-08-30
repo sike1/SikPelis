@@ -1,0 +1,74 @@
+<main class="contenido-evento">
+    <div class="contenedor">
+        <div class="informacion-evento">
+            <div class="descripcion">
+                    <img src="/uploads/carteles/<%= pelicula.imagen %>" width="50%">
+                <p style="font-weight: bold">Sinopsis:</p>
+                <p style="text-align: justify;"><%= pelicula.sinopsis %></p>
+                <div class="comentarios">
+            <h2>Comentarios</h2>
+        <% if (comentarios.length > 0) { %>
+            <% comentarios.forEach(comentario => { %>
+                <div class="comentario">
+                    <div class="imagen">
+                        <% if (comentario.usuario.imagen) { %>
+                            <img  src="/uploads/perfiles/<%= comentario.usuario.imagen %>" style="border-radius: 50px;" >
+                        <% } else{ %>
+                            <img src="/img/no-avatar.png">
+                        <% } %>
+                    </div>
+                    <div class="texto" style="border-radius: 50px;">
+                        <p><%= comentario.mensaje %></p>
+                        <p>Escrito por: <%= comentario.usuario.nombre %></p>
+                        <% if(comentario.usuario.id === usuario.id || usuario.id === pelicula.usuarioId) {%>
+                        <form action="/eliminarComentario/<%= comentario.id%>" method="POST" class="eliminarComentario">
+                                <input type="submit" class="btn btn-azul" value="Eliminar">
+                                <input type="hidden" >
+                        </form>
+                        <% } %>
+                    </div>
+                </div>
+            <% }) %>
+        <% } else { %>
+            <p>No hay comentarios</p>
+        <% } %>
+            <!--Form comentarios-->
+
+                <form action="/comentario/<%= pelicula.id %>" method="post" class="default-form comentarios">
+                    <legend>Agrega un comentario</legend>
+                    <div class="campo">
+                        <textarea name="mensaje" placeholder="Introduce aqui tu comentario"></textarea>
+                    </div>
+                    <div class="campo enviar">
+                        <input type="submit" value="Enviar" class="btn btn-rosa">
+                    </div>
+                </form>
+            
+        </div><!--comentarios-->
+            </div><!--descripcion-->   
+        </div><!--Info evento-->
+        <aside class="informacion">
+            <% moment.locale("es");%>
+            <div class="fecha">
+                <p style="font-weight: bold">Estreno:</p>
+                <p><%= moment(pelicula.estreno).format("LL") %></p>
+                <p style="font-weight: bold">Duracion:</p>
+                <p><%= pelicula.duracion %> min.</p>
+                <p style="font-weight: bold"><a href="<%= pelicula.trailer %>" target="_blank">Ver trailer</a></p>
+
+                <% const existe = usuario.pelisFavs.includes(pelicula.id)%>
+
+                <form action="/pelicula/<%= pelicula.slug %>" method="post" id="fav">
+                    <% if (existe) { %>
+                        <input type="hidden" id="accion" value="quitar">
+                        <input type="submit" class="btn-fav-rojo" value="Quitar de favoritos"> 
+                    <% } else { %>
+                        <input type="hidden" id="accion" value="favorito">
+                        <input type="submit" class="btn-fav" value="Añadir a favoritos">
+                    <% } %>
+                </form>
+            </div>
+        </aside>
+    </div>
+</main>
+

@@ -1,0 +1,45 @@
+<main class="contenedor contenedor-formularios">
+    <h1><%= pagina %></h1>
+    <form action="/editarPelicula/<%= pelicula.id %>" method="post" class="default-form" enctype="multipart/form-data">
+   
+        <div class="campo">
+            <label>Titulo </label>
+            <input type="text" value="<%= pelicula.titulo %>" name="titulo" placeholder="Titulo">
+        </div>
+        <div class="campo">
+            <label>Fecha de estreno: </label>
+            <input type="date" value="<%= pelicula.estreno %>" name="estreno">
+        </div>
+        <div class="campo">
+            <label>Sinopsis </label>
+            <textarea name="sinopsis" cols="30" rows="10" placeholder="Sinopsis"><%= pelicula.sinopsis %></textarea>
+        </div>
+        <div class="campo">
+            <label>Cartel </label>
+            <input type="file" name="imagen" >
+        </div>
+        <div class="campo">
+            <label>Duración </label>
+            <input type="number" value="<%= pelicula.duracion %>" name="duracion" >
+        </div>
+        <div class="campo">
+            <label>Genero </label>
+             <select name="generoId">
+                <option disabled selected>-- Selecciona Genero --</option>
+                <% if(generos.length > 0 )  { %>
+                    <% generos.forEach(genero => { %>
+                        <option value="<%= genero.id %>"
+                            <%= (pelicula.generoId === genero.id) ? "selected" : "" %>><%= genero.nombre %></option>
+                    <% }) %>
+                <% } %>
+            </select>
+        </div>
+        <div class="campo">
+            <label>Trailer </label>
+            <input type="text" value="<%= pelicula.trailer %>" name="trailer" >
+        </div>
+        <div class="campo enviar">
+            <input type="submit" value="Actualizar" class="btn btn-azul">
+        </div>
+    </form>
+</main>

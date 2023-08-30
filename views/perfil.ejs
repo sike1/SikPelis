@@ -1,0 +1,24 @@
+<main class="contenedor panel-administracion">
+    <div class="contenedor-botones">
+        <a href="/cambiarPassword" class="btn btn-azul">Cambiar Contraseña</a>
+        <a href="/editarPerfil" class="btn btn-amarillo">Editar Perfil</a>
+        <% if (usuario.admin===1) { %>
+        <a href="/administracion" class="btn btn-rosa">Administración</a>
+            
+        <% } %>
+    </div>
+        <div class="seccion-admin">
+            <h2>Peliculas Favoritas</h2>
+            <div class="contenedor">
+                <% moment.locale("es");%>
+                <div class="grid columnas-md-3 ">
+                    <% if(peliculas.length > 0){ %>
+                    <% peliculas.forEach(peli => { %>
+                    <%- include ("partials/cardPelis.ejs", {peli : peli}) %>   
+                        <% }) %>
+                    <% } %>
+                </div>
+                <%- include('partials/paginacion.ejs') %>
+            </div>
+        </div>
+</main>

@@ -1,0 +1,32 @@
+<main class="contenedor panel-administracion">
+    <h1><%= pagina %></h1>
+
+    <div class="contenedor-botones">
+        <a href="/nuevaPelicula" class="btn btn-rosa">Añadir pelicula</a>
+        <% if (usuario.superAdmin === 1) { %>
+            <a href="/nuevoAdmin" class="btn btn-azul2">Hacer administrador</a>
+            <a href="/noAdmin" class="btn btn-naranja">Quitar administrador</a>
+        <% } %>
+    </div>
+        <div class="seccion-admin">
+            <h2>Peliculas</h2>
+            <% peliculas.forEach(peli => { %>
+            <ul>
+                <li>
+                    <div class="informacion-admin">
+                            <a href="/pelicula/<%= peli.slug %>" target="_blank">
+                                <h3><%= peli.titulo %></h3>
+                            </a>
+                    </div>
+                    <div class="acciones contenedor-botones">
+                            <a href="/editarPelicula/<%= peli.id %>"class="btn btn-verde">Editar</a>
+                            <a href="/eliminarPelicula/<%= peli.id %>"class="btn btn-rojo">Eliminar</a>
+                    </div>
+                </li>  
+            </ul>
+            <% }) %>
+        </div>
+
+        <%- include('partials/paginacion.ejs') %>
+        
+</main>

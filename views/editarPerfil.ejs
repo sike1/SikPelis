@@ -1,0 +1,27 @@
+<main class="contenedor contenedor-formularios">
+    <h1><%= pagina  %></h1>
+    <form action="/editarPerfil" method="post" class="default-form" enctype="multipart/form-data">
+        <div class="campo">
+            <input type="email" name="email" value="<%= usuario.email %>" placeholder="Email">
+        </div>
+        <div class="campo">
+            <input type="text" name="nombre" value="<%= usuario.nombre %>" placeholder="Nombre">
+        </div> 
+        <div class="campo">
+            <input type="file" name="imagen">
+        </div>
+        <% if (usuario.imagen) { %>
+            <div class="campo">
+                <label>Imagen actual</label>
+                <img src="/uploads/perfiles/<%= usuario.imagen %>" width="150px">
+            </div>
+        <% } else { %>
+            <p>No hay imagen actual</p>
+            <% } %>
+        
+        <div class="campo enviar">
+            <a class="btn btn-rojo" style="margin-right: auto; " href="/eliminarCuenta"> Eliminar cuenta</a>
+            <input type="submit" value="Guardar Cambios" class="btn btn-azul">
+        </div>
+    </form>
+</main>

@@ -1,0 +1,44 @@
+<main class="contenedor contenedor-formularios">
+    <h1><%= pagina %></h1>
+    <form action="/nuevaPelicula" method="post" class="default-form" enctype="multipart/form-data">
+   
+        <div class="campo">
+            <label>Titulo </label>
+            <input type="text" name="titulo" placeholder="Titulo">
+        </div>
+        <div class="campo">
+            <label>Fecha de estreno: </label>
+            <input type="date" name="estreno">
+        </div>
+        <div class="campo">
+            <label>Sinopsis </label>
+            <textarea name="sinopsis" cols="30" rows="10" placeholder="Sinopsis"></textarea>
+        </div>
+        <div class="campo">
+            <label>Cartel </label>
+            <input type="file" name="imagen" >
+        </div>
+        <div class="campo">
+            <label>Duración </label>
+            <input type="number" name="duracion" >
+        </div>
+        <div class="campo">
+            <label>Genero </label>
+             <select name="generoId">
+                <option value="" disabled selected>-- Selecciona Genero --</option>
+                <% if(generos.length > 0 )  { %>
+                    <% generos.forEach(genero => { %>
+                        <option value="<%= genero.id %>"><%= genero.nombre %></option>
+                    <% }) %>
+                <% } %>
+            </select>
+        </div>
+        <div class="campo">
+            <label>Trailer </label>
+            <input type="text" name="trailer" >
+        </div>
+        <div class="campo enviar">
+            <input type="submit" value="Insertar" class="btn btn-azul">
+        </div>
+    </form>
+</main>

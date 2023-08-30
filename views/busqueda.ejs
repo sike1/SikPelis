@@ -1,0 +1,14 @@
+<div class="contenedor">
+    <h1><%= pagina %></h1>
+    <% if (peliculas.length > 0) { %>
+    <div class="grid columnas-md-3 ">
+        <% moment.locale("es");%>
+        <% peliculas.forEach(peli => { %>    
+            <%- include ("partials/cardPelis.ejs", {peli : peli}) %>      
+        <% }) %>
+    </div>
+    <%- include('partials/paginacionBusqueda.ejs') %>
+    <% } else { %>
+        <h2>No hay Resultados</h2>
+    <% } %>
+</div>

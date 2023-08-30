@@ -1,0 +1,14 @@
+
+<div class="card">
+    <div class="card-texto">
+        <a href="/pelicula/<%= peli.slug %>">
+            <img src="/uploads/carteles/<%= peli.imagen %>" >
+            <h3><%= peli.titulo %></h3>
+        </a>
+            <div class="informacion">
+                <p class="fecha">Estreno: <%= moment(peli.estreno).format("ll") %></p>
+            </div>
+    
+
+    </div>
+</div>
