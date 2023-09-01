@@ -142,11 +142,10 @@ exports.olvidePassword = async (req, res) => {
     return res.redirect("/olvidePassword");
   }
 
+  //Añadimos al usuario un token para poder cambiar la password
   usuario.token = shortId.generate();
 
   try {
-    await usuario.save();
-
     // Url de confirmación
     const url = `http://${req.headers.host}/resetPassword/${usuario.token}`;
 
@@ -157,6 +156,8 @@ exports.olvidePassword = async (req, res) => {
       subject: "Recuperar tu cuenta de PeliSerie",
       archivo: "recuperarPassword",
     });
+
+    await usuario.save();
     // Si no hay errores, se crea el usuario en la base de datos y se redirige a otra página, si es necesario.
     req.flash("exito", "Hemos enviado un correo para resetear tu contraseña");
     return res.redirect("/");

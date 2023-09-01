@@ -1,27 +1,23 @@
-const Usuarios = require("../models/Usuarios")
-const enviarEmail = require("../helpers/email")
+const Usuarios = require("../models/Usuarios");
+const enviarEmail = require("../helpers/email");
 
+exports.formCrearCuenta = (req, res) => {
+  res.render("crearCuenta", {
+    pagina: "Crear Cuenta",
+  });
+};
 
-exports.formCrearCuenta=(req,res)=>{
-
-    res.render("crearCuenta",{
-        pagina: "Crear Cuenta"
-    })
-
-}
-
-
-exports.crearCuenta= async(req,res)=>{
-
-    // Realizar las validaciones antes de intentar crear el usuario
-    req.checkBody("nombre", "El nombre no puede ir vacío").notEmpty();
-    req.checkBody("email", "El email no puede ir vacío").notEmpty();
-    req.checkBody("password", "La contraseña no puede ir vacía").notEmpty();
-    req.checkBody("confirmar", "Repetir Contraseña no puede ir vacío").notEmpty();
-    req
+//crear cuenta
+exports.crearCuenta = async (req, res) => {
+  // Realizar las validaciones antes de intentar crear el usuario
+  req.checkBody("nombre", "El nombre no puede ir vacío").notEmpty();
+  req.checkBody("email", "El email no puede ir vacío").notEmpty();
+  req.checkBody("password", "La contraseña no puede ir vacía").notEmpty();
+  req.checkBody("confirmar", "Repetir Contraseña no puede ir vacío").notEmpty();
+  req
     .checkBody("confirmar", "La Contraseña es diferente")
     .equals(req.body.password);
-    // Leer los errores de express
+  // Leer los errores de express
   const erroresExpress = req.validationErrors();
 
   // Comprobar si hay errores de validación antes de crear el usuario
@@ -30,97 +26,101 @@ exports.crearCuenta= async(req,res)=>{
     const errExp = erroresExpress.map((err) => err.msg);
     req.flash("error", errExp);
     return res.redirect("/crearCuenta");
-  } 
-    const usuario = req.body
-
-    const existe =await Usuarios.findOne({where:{email:usuario.email}})
-
-    if(existe){
-        req.flash("error", "Este Email ya existe");
-        return res.redirect("/crearCuenta");
-    }
-
-
-    try {
-      await Usuarios.create(usuario);
-      // Url de confirmación
-      const url = `http://${req.headers.host}/confirmarCuenta/${usuario.email}`;
-
-      // Enviar email de confirmación
-      await enviarEmail.enviarEmail({
-          usuario,
-          url, 
-          subject : 'Confirma tu cuenta de PeliSerie',
-          archivo : 'confirmarCuenta'
-      });
-      // Si no hay errores, se crea el usuario en la base de datos y se redirige a otra página, si es necesario.
-      req.flash("exito", "Cuenta creada, hemos enviado un correo para que confirmes tu cuenta");
-      res.redirect("/");
-    } catch (error) {
-      // Manejo de errores de Sequelize si ocurre algún problema con la creación del usuario
-        req.flash("error", "Ha habido un error, intentelo de nuevo");
-        res.redirect("/crearCuenta");
   }
-}
+  const usuario = req.body;
 
-exports.confirmarCuenta=async(req,res)=>{
+  const existe = await Usuarios.findOne({ where: { email: usuario.email } });
 
-  const usuario=await Usuarios.findOne({where:{email : req.params.email}})
+  if (existe) {
+    req.flash("error", "Este Email ya existe");
+    return res.redirect("/crearCuenta");
+  }
 
-  if(!usuario){
+  try {
+    // Url de confirmación
+    const url = `http://${req.headers.host}/confirmarCuenta/${usuario.email}`;
+
+    // Enviar email de confirmación
+    await enviarEmail.enviarEmail({
+      usuario,
+      url,
+      subject: "Confirma tu cuenta de PeliSerie",
+      archivo: "confirmarCuenta",
+    });
+    //introducimos los datos enla BD
+    await Usuarios.create(usuario);
+    // Si no hay errores, se crea el usuario en la base de datos y se redirige a otra página, si es necesario.
+    req.flash(
+      "exito",
+      "Cuenta creada, hemos enviado un correo para que confirmes tu cuenta"
+    );
+    res.redirect("/");
+  } catch (error) {
+    // Manejo de errores de Sequelize si ocurre algún problema con la creación del usuario
     req.flash("error", "Ha habido un error, intentelo de nuevo");
+    res.redirect("/crearCuenta");
+  }
+};
+
+exports.confirmarCuenta = async (req, res) => {
+  const usuario = await Usuarios.findOne({
+    where: { email: req.params.email },
+  });
+
+  if (usuario.activo === 1) {
+    req.flash("error", "Usuario ya confirmado");
     return res.redirect("/");
   }
 
-  usuario.activo = 1
+  usuario.activo = 1;
 
-  await usuario.save()
+  await usuario.save();
 
   req.flash("exito", "Tu cuenta ha sido confirmada correctamente");
   return res.redirect("/");
-}
+};
 
+exports.formEliminarCuenta = async (req, res) => {
+  const usuario = await Usuarios.findByPk(req.usuario.id);
 
-exports.formEliminarCuenta=async(req,res)=>{
+  if (!usuario) {
+    req.flash("error", "Este usuario ya no existe");
+    res.redirect("/");
+  }
 
-  const usuario = await Usuarios.findByPk(req.usuario.id)
-  
   try {
     // Url de eliminacion
     const url = `http://${req.headers.host}/eliminarCuenta/${usuario.email}`;
 
     // Enviar email de eliminacion
     await enviarEmail.enviarEmail({
-        usuario,
-        url, 
-        subject : 'Elimina tu cuenta de PeliSerie',
-        archivo : 'eliminarCuenta'
+      usuario,
+      url,
+      subject: "Elimina tu cuenta de PeliSerie",
+      archivo: "eliminarCuenta",
     });
     // Si no hay errores, se crea el usuario en la base de datos y se redirige a otra página, si es necesario.
     req.flash("exito", "Hemos enviado un correo para que elimines tu cuenta");
     res.redirect("/");
   } catch (error) {
     // Manejo de errores de Sequelize si ocurre algún problema con la creación del usuario
-      req.flash("error", "Ha habido un error, intentelo de nuevo");
-      res.redirect("/editarPerfil");
+    req.flash("error", "Ha habido un error, intentelo de nuevo");
+    res.redirect("/editarPerfil");
   }
+};
 
-}
+exports.eliminarCuenta = async (req, res) => {
+  const usuario = await Usuarios.findOne({
+    where: { email: req.params.email },
+  });
 
-exports.eliminarCuenta=async(req,res)=>{
-  const usuario = await Usuarios.findOne({where:{email:req.params.email}})
-
-  if(!usuario){
+  if (!usuario) {
     req.flash("error", "Ha habido un error, intentelo de nuevo");
     return res.redirect("/");
   }
 
-  usuario.destroy()
-  res.clearCookie("_token")
+  usuario.destroy();
+  res.clearCookie("_token");
   req.flash("exito", "Tu cuenta ha sido eliminada");
   return res.redirect("/");
-}
-
-
-
-
+};
