@@ -47,7 +47,7 @@ exports.crearCuenta = async (req, res) => {
       subject: "Confirma tu cuenta de PeliSerie",
       archivo: "confirmarCuenta",
     });
-    //introducimos los datos enla BD
+    //introducimos los datos en la BD
     await Usuarios.create(usuario);
     // Si no hay errores, se crea el usuario en la base de datos y se redirige a otra página, si es necesario.
     req.flash(
