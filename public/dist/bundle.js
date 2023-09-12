@@ -16,7 +16,7 @@
   \**************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _favoritos__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./favoritos */ \"./public/js/favoritos.js\");\n\n\n//# sourceURL=webpack://peliseries/./public/js/app.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _favoritos__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./favoritos */ \"./public/js/favoritos.js\");\n\ndocument.addEventListener(\"DOMContentLoaded\", function () {\n  var revisar = document.querySelector(\"#revisar\");\n  if (revisar) {\n    document.getElementById(\"revisar\").addEventListener(\"click\", function () {\n      location.href = \"/revisarPelis\";\n    });\n  }\n});\n\n//# sourceURL=webpack://peliseries/./public/js/app.js?");
 
 /***/ }),
 

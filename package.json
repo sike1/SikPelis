@@ -1,7 +1,7 @@
 {
   "name": "peliseries",
   "version": "1.0.0",
-  "description": "Proyecto Pelis y Series",
+  "description": "Proyecto Pelis",
   "main": "index.js",
   "scripts": {
     "dev": "nodemon ./index.js",

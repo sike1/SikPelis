@@ -1,0 +1,33 @@
+<main class="contenido-evento">
+  <div class="contenedor">
+    <div class="informacion-evento">
+      <div class="descripcion">
+        <img src="/uploads/carteles/<%= pelicula.imagen %>" width="50%" />
+        <p style="font-weight: bold">Sinopsis:</p>
+        <p style="text-align: justify"><%= pelicula.sinopsis %></p>
+      </div>
+      <!--descripcion-->
+      <div class="contenedor-botones">
+        <form method="post">
+          <input type="submit" class="btn btn-verde" value="Publicar" />
+          <a class="btn btn-rojo" href="/corregir/<%= pelicula.id %>"
+            >Corregir</a
+          >
+        </form>
+      </div>
+    </div>
+    <!--Info -->
+    <aside class="informacion">
+      <% moment.locale("es");%>
+      <div class="fecha">
+        <p style="font-weight: bold">Estreno:</p>
+        <p><%= moment(pelicula.estreno).format("LL") %></p>
+        <p style="font-weight: bold">Duracion:</p>
+        <p><%= pelicula.duracion %> min.</p>
+        <p style="font-weight: bold">
+          <a href="<%= pelicula.trailer %>" target="_blank">Ver trailer</a>
+        </p>
+      </div>
+    </aside>
+  </div>
+</main>

@@ -11,7 +11,7 @@ const perfilController = require("../controllers/perfilController");
 const {
   protegerRuta,
   protegerRutaAdmin,
-  protegerRutaSuperAdmin
+  protegerRutaSuperAdmin,
 } = require("../middleware/protegerRuta");
 
 module.exports = function () {
@@ -24,8 +24,16 @@ module.exports = function () {
   //confirmar Cuenta
   router.get("/confirmarCuenta/:email", usuarioController.confirmarCuenta);
   //Eliminar Cuenta
-  router.get("/eliminarCuenta",protegerRuta, usuarioController.formEliminarCuenta)
-  router.get("/eliminarCuenta/:email",protegerRuta, usuarioController.eliminarCuenta)
+  router.get(
+    "/eliminarCuenta",
+    protegerRuta,
+    usuarioController.formEliminarCuenta
+  );
+  router.get(
+    "/eliminarCuenta/:email",
+    protegerRuta,
+    usuarioController.eliminarCuenta
+  );
 
   //Inicio  de sesion
   router.get("/", authController.formIniciarSesion);
@@ -59,27 +67,39 @@ module.exports = function () {
   );
 
   //Form hacer Admin
-  router.get("/nuevoAdmin", protegerRuta,
-                            protegerRutaAdmin,
-                            protegerRutaSuperAdmin, 
-                            adminControllers.formBuscarUsuario);
+  router.get(
+    "/nuevoAdmin",
+    protegerRuta,
+    protegerRutaAdmin,
+    protegerRutaSuperAdmin,
+    adminControllers.formBuscarUsuario
+  );
 
   //Hacer Admin
-  router.post("/nuevoAdmin", protegerRuta,
-                             protegerRutaAdmin, 
-                             protegerRutaSuperAdmin,
-                             adminControllers.buscarYhacerAdmin);
+  router.post(
+    "/nuevoAdmin",
+    protegerRuta,
+    protegerRutaAdmin,
+    protegerRutaSuperAdmin,
+    adminControllers.buscarYhacerAdmin
+  );
 
-  router.get("/noAdmin", protegerRuta,
-                            protegerRutaAdmin,
-                            protegerRutaSuperAdmin, 
-                            adminControllers.formNoAdmin);
+  router.get(
+    "/noAdmin",
+    protegerRuta,
+    protegerRutaAdmin,
+    protegerRutaSuperAdmin,
+    adminControllers.formNoAdmin
+  );
 
   //Quitar Admin
-  router.post("/noAdmin",  protegerRuta,
-                              protegerRutaAdmin, 
-                              protegerRutaSuperAdmin,
-                              adminControllers.buscarAdmin);
+  router.post(
+    "/noAdmin",
+    protegerRuta,
+    protegerRutaAdmin,
+    protegerRutaSuperAdmin,
+    adminControllers.buscarAdmin
+  );
 
   //Peliculas
   router.get(
@@ -95,6 +115,7 @@ module.exports = function () {
     peliculasControllers.subirImagen,
     peliculasControllers.nuevaPelicula
   );
+
   //Comentarios de peliculas
   router.post(
     "/comentario/:id",
@@ -145,6 +166,34 @@ module.exports = function () {
     peliculasControllers.peliculaFav
   );
 
+  //Revisar Peliculas
+  router.get(
+    "/revisarPelis",
+    protegerRuta,
+    protegerRutaAdmin,
+    adminControllers.mostrarPelisParaRevisar
+  );
+
+  router.get(
+    "/revisarPeli/:id",
+    protegerRuta,
+    protegerRutaAdmin,
+    adminControllers.revisarPelicula
+  );
+
+  router.post(
+    "/revisarPeli/:id",
+    protegerRuta,
+    protegerRutaAdmin,
+    adminControllers.publicarPeli
+  );
+
+  router.get(
+    "/corregir/:id",
+    protegerRuta,
+    protegerRutaAdmin,
+    adminControllers.corregirPeli
+  );
   //Perfil
   router.get("/perfil/:id", protegerRuta, perfilController.perfil);
   //EditarPerfil
@@ -164,12 +213,10 @@ module.exports = function () {
     peliculasControllers.mostrarPeliculas
   );
   //Busqueda por titulo o genero o ambas
-  router.get("/busqueda",protegerRuta, homeController.busqueda)
+  router.get("/busqueda", protegerRuta, homeController.busqueda);
 
   //Busqueda por genero
-  router.get("/genero/:slug",protegerRuta, homeController.busquedaGenero)
-
-
+  router.get("/genero/:slug", protegerRuta, homeController.busquedaGenero);
 
   return router;
 };

@@ -42,6 +42,11 @@ const Peliculas = db.define(
     slug : {
         type: Sequelize.STRING,
     },
+    revisado : {
+        type: Sequelize.INTEGER,
+        defaultValue: 0,
+        allowNull: false
+    },
 
   }, {
     hooks: {

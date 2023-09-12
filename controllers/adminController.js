@@ -1,117 +1,210 @@
 const moment = require("moment");
 const Peliculas = require("../models/Peliculas");
 const Usuarios = require("../models/Usuarios");
+const enviarEmail = require("../helpers/email");
 
+exports.administracion = async (req, res) => {
+  const { pagina: paginaActual } = req.query;
 
+  const expresion = /^[1-9]$/;
 
-exports.administracion=async(req,res)=>{
+  if (!expresion.test(paginaActual)) {
+    return res.redirect("/administracion?pagina=1");
+  }
 
-    const  {pagina: paginaActual } = req.query
+  try {
+    //limites y offset
+    const limit = 4;
 
-    const expresion = /^[1-9]$/
+    const offset = paginaActual * limit - limit;
 
-    if(!expresion.test(paginaActual)){
-        return res.redirect("/administracion?pagina=1")
-    }
+    const [peliculas, total, revisar] = await Promise.all([
+      Peliculas.findAll({
+        limit,
+        offset,
+        where: { usuarioId: req.usuario.id, revisado: 1 },
+      }),
+      Peliculas.count({
+        where: {
+          usuarioId: req.usuario.id,
+          revisado: 1,
+        },
+      }),
+      Peliculas.count({
+        where: {
+          revisado: 0,
+        },
+      }),
+    ]);
 
+    res.render("administracion", {
+      pagina: "Panel de administracion",
+      peliculas,
+      moment,
+      usuario: req.usuario,
+      paginas: Math.ceil(total / limit),
+      paginaActual,
+      sitio: "administracion",
+      revisar,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
 
-    try {
-        //limites y offset
-        const limit = 4
+exports.formBuscarUsuario = (req, res) => {
+  res.render("nuevoAdmin", {
+    pagina: "Hacer administrador",
+    usuario: req.usuario,
+  });
+};
 
-        const offset = ((paginaActual * limit) - limit)
+exports.buscarYhacerAdmin = async (req, res) => {
+  const usuario = await Usuarios.findOne({ where: { email: req.body.email } });
 
-        const [peliculas,total] = await Promise.all([
-                Peliculas.findAll({
-                limit,
-                offset,
-                where:{usuarioId: req.usuario.id}}),
-                Peliculas.count({
-                    where:{
-                        usuarioId: req.usuario.id
-                    }
-                })
-            ])
+  if (!usuario) {
+    req.flash("error", "Ese usuario no existe");
+    return res.redirect("/nuevoAdmin");
+  }
+  if (usuario.admin === 1) {
+    req.flash("error", "Ese usuario ya es admin");
+    return res.redirect("/nuevoAdmin");
+  }
 
-        res.render("administracion",{
-            pagina:"Panel de administracion",
-            peliculas,
-            moment,
-            usuario:req.usuario,
-            paginas: Math.ceil(total / limit),
-            paginaActual,
-            sitio: "administracion"
+  usuario.admin = 1;
 
-        })
-        
-    } catch (error) {
-        console.log(error)
-    }  
-}
+  await usuario.save();
 
-exports.formBuscarUsuario=(req,res)=>{
-    
-    res.render("nuevoAdmin",{
-        pagina: "Hacer administrador",
-        usuario: req.usuario
-    })
+  req.flash("exito", "Este usuario es admin ahora");
+  return res.redirect("/nuevoAdmin");
+};
 
-}
+exports.formNoAdmin = (req, res) => {
+  res.render("noAdmin", {
+    pagina: "Quitar administracion",
+    usuario: req.usuario,
+  });
+};
 
+exports.buscarAdmin = async (req, res) => {
+  const usuario = await Usuarios.findOne({ where: { email: req.body.email } });
 
-exports.buscarYhacerAdmin=async(req, res)=>{
+  if (!usuario) {
+    req.flash("error", "El usuario no existe");
+    return res.redirect("/noAdmin");
+  }
 
-    const usuario = await Usuarios.findOne({where:{email:req.body.email}})
+  if (usuario.admin === 0) {
+    req.flash("error", "El usuario no es admin");
+    return res.redirect("/noAdmin");
+  }
 
-    if(!usuario){
-        req.flash("error","Ese usuario no existe")
-        return res.redirect("/nuevoAdmin")
-    }
-    if(usuario.admin === 1){
-        req.flash("error","Ese usuario ya es admin")
-        return res.redirect("/nuevoAdmin")
-    }
+  usuario.admin = 0;
 
-    usuario.admin = 1
+  await usuario.save();
 
-    await usuario.save()
+  req.flash("exito", `El usuario: ${usuario.email}, ya no es admin`);
 
-    req.flash("exito","Este usuario es admin ahora")
-    return res.redirect("/nuevoAdmin")
+  return res.redirect("/noAdmin");
+};
 
+//Muestro las peliculas que estan por revisar
+exports.mostrarPelisParaRevisar = async (req, res) => {
+  const { pagina: paginaActual } = req.query;
 
-}
+  const expresion = /^[1-9]$/;
 
+  if (!expresion.test(paginaActual)) {
+    return res.redirect("/revisarPelis?pagina=1");
+  }
 
-exports.formNoAdmin=(req,res)=>{
+  try {
+    //limites y offset
+    const limit = 4;
 
-    res.render("noAdmin",{
-        pagina:"Quitar administracion",
-        usuario:req.usuario
-    })
+    const offset = paginaActual * limit - limit;
 
-}
+    const [peliculas, total] = await Promise.all([
+      Peliculas.findAll({
+        limit,
+        offset,
+        where: { revisado: 0 },
+      }),
+      Peliculas.count({
+        where: {
+          revisado: 0,
+        },
+      }),
+    ]);
+    res.render("revisarPelis", {
+      pagina: "Revisar Peliculas",
+      usuario: req.usuario,
+      peliculas,
+      paginas: Math.ceil(total / limit),
+      paginaActual,
+      sitio: "revisarPelis",
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
 
+//Muestro toda la informacion de la pelicula a revisar
+exports.revisarPelicula = async (req, res) => {
+  const pelicula = await Peliculas.findByPk(req.params.id);
 
-exports.buscarAdmin=async(req,res)=>{
+  res.render("mostrarPeliculaRe", {
+    pagina: pelicula.titulo,
+    usuario: req.usuario,
+    pelicula,
+    moment,
+  });
+};
 
-    const usuario = await Usuarios.findOne({where:{email:req.body.email}})
+//Si esta todo bien publico la pelicula
+exports.publicarPeli = async (req, res) => {
+  const pelicula = await Peliculas.findByPk(req.params.id);
 
-    if(!usuario){
-        req.flash("error", "El usuario no existe")
-        return res.redirect("/noAdmin")
-    }
+  if (!pelicula) {
+    req.flash("error", "Han habido un error");
+    return res.redirect("/revisarPelis");
+  }
 
-    if(usuario.admin === 0){
-        req.flash("error","El usuario no es admin")
-        return res.redirect("/noAdmin")
-    }
+  pelicula.revisado = 1;
 
-    usuario.admin = 0
+  await pelicula.save();
 
-    await usuario.save()
+  req.flash("exito", "Pelicula Publicada");
+  res.redirect("/revisarPelis");
+};
 
-    req.flash("exito",`El usuario: ${usuario.email}, ya no es admin`)
+//Si la info de la pelicual noes correcta enviaremos un correo a usuario que realizo la insersion de la pelicula para que la corrija
 
-    return res.redirect("/noAdmin")
-}
+exports.corregirPeli = async (req, res) => {
+  const pelicula = await Peliculas.findByPk(req.params.id, {
+    include: [
+      {
+        model: Usuarios,
+      },
+    ],
+  });
+
+  try {
+    // Url de confirmación
+    const url = `http://${req.headers.host}/editarPelicula/${pelicula.id}`;
+
+    // Enviar email de confirmación
+    await enviarEmail.enviarEmail({
+      usuario: pelicula.usuario,
+      url,
+      pelicula: pelicula.titulo,
+      subject: `Corriga la pelicula: ${pelicula.titulo}`,
+      archivo: "corregirPelicula",
+    });
+
+    req.flash("exito", "Email enviado");
+    res.redirect("/revisarPelis");
+  } catch (error) {
+    console.log(error);
+  }
+};
