@@ -37,7 +37,7 @@ const Peliculas = db.define(
     },
     trailer:{
         type:Sequelize.TEXT,
-        allowNull: false,
+        
     },
     slug : {
         type: Sequelize.STRING,
