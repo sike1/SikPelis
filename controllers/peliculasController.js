@@ -71,7 +71,6 @@ exports.nuevaPelicula = async (req, res, next) => {
   req.checkBody("sinopsis", "La sinopsis no puede ir vacío").notEmpty();
   req.checkBody("duracion", "La duracion no puede ir vacía").notEmpty();
   req.checkBody("generoId", "El genero no puede ir vacío").notEmpty();
-  req.checkBody("trailer", "El trailer no puede ir vacío").notEmpty();
 
   // Leer los errores de express
   const erroresExpress = req.validationErrors();
