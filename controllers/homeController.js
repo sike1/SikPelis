@@ -123,7 +123,6 @@ exports.busquedaGenero = async (req, res) => {
       }),
       Peliculas.count({ where: { generoId: genero.id, revisado: 1 } }),
     ]);
-    console.log(peliculas)
     res.render("busquedaGenero", {
       pagina: `Busqueda Genero: ${genero.nombre}`,
       peliculas,

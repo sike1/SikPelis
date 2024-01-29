@@ -19,13 +19,12 @@ db.sync()
   .then(() => console.log("DB Conectada"))
   .catch((error) => console.log(error));
 
-
 //Aplicacion principal
 const app = express();
 
-
 //Routing
 const router = require("./routes");
+const apiRouter = require("./routes/apiRouters");
 
 // Habilitar lectura de datos de formularios
 app.use(bodyParser.json());
@@ -43,7 +42,6 @@ app.set("views", path.join(__dirname, "./views"));
 
 //Habilitar cookie-Parser
 app.use(cookieParser());
-
 
 //crear La sesion
 app.use(
@@ -70,6 +68,7 @@ app.use((req, res, next) => {
 
 //Routing
 app.use("/", router());
+app.use("/api", apiRouter());
 
 //agrega puerto
 app.listen(process.env.PORT, () => {

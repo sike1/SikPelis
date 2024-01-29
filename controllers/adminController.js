@@ -17,7 +17,6 @@ exports.administracion = async (req, res) => {
     const limit = 4;
 
     const offset = paginaActual * limit - limit;
-
     const [peliculas, total, revisar] = await Promise.all([
       Peliculas.findAll({
         limit,
@@ -179,7 +178,6 @@ exports.publicarPeli = async (req, res) => {
 };
 
 //Si la info de la pelicual noes correcta enviaremos un correo a usuario que realizo la insersion de la pelicula para que la corrija
-
 exports.corregirPeli = async (req, res) => {
   const pelicula = await Peliculas.findByPk(req.params.id, {
     include: [

@@ -2,9 +2,9 @@
   <div class="seccion-admin">
     <% if (peliculas.length > 0) { %>
     <h2>Peliculas a revisar</h2>
-
-    <% peliculas.forEach(peli => { %>
     <ul>
+      < <% peliculas.forEach(peli => { %>
+
       <li>
         <div class="informacion-admin">
           <a href="/pelicula/<%= peli.slug %>" target="_blank">
@@ -17,8 +17,10 @@
           >
         </div>
       </li>
+
+      <% }) %>
     </ul>
-    <% }) %> <%- include('partials/paginacion.ejs') %> <% } else { %>
+    <%- include('partials/paginacion.ejs') %> <% } else { %>
 
     <h2>No hay pelicuas para revisar</h2>
 

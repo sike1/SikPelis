@@ -54,7 +54,12 @@
                 <p><%= moment(pelicula.estreno).format("LL") %></p>
                 <p style="font-weight: bold">Duracion:</p>
                 <p><%= pelicula.duracion %> min.</p>
-                <p style="font-weight: bold"><a href="<%= pelicula.trailer %>" target="_blank">Ver trailer</a></p>
+
+                <% if (pelicula.trailer) { %> 
+                    <p style="font-weight: bold"><a href="<%= pelicula.trailer %>" target="_blank">Ver trailer</a></p>
+                <% } else { %>
+                    <p style="font-weight: bold">No hay Trailer</p> 
+                <% } %>
 
                 <% const existe = usuario.pelisFavs.includes(pelicula.id)%>
 

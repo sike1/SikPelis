@@ -11,13 +11,14 @@
       id="revisar"
       class="btn btn-primary position-relative"
     >
-      Revisar Peliculas
+      Revisar Peliculas <% if (revisar != 0) { %>
       <span
         class="position-absolute top-0 start-100 translate-middle badge rounded-pill badge-danger"
       >
         <%= revisar %>
         <span class="visually-hidden">unread messages</span>
       </span>
+      <% } %>
     </button>
 
     <% } %>
@@ -25,8 +26,9 @@
 
   <div class="seccion-admin">
     <h2>Peliculas</h2>
-    <% peliculas.forEach(peli => { %>
     <ul>
+      <% peliculas.forEach(peli => { %>
+
       <li>
         <div class="informacion-admin">
           <a href="/pelicula/<%= peli.slug %>" target="_blank">
@@ -42,9 +44,15 @@
           >
         </div>
       </li>
+      <% }) %>
     </ul>
-    <% }) %>
   </div>
-
   <%- include('partials/paginacion.ejs') %>
+  <div class="seccion-admin">
+    <h1>Peliculas pendientes de revisión</h1>
+    <div id="contenedor">
+      
+    <ul id="lista"></ul>
+
+  </div>
 </main>
