@@ -6,24 +6,23 @@ html {
 *:after {
   box-sizing: inherit;
 }
-body {
+body{
   font-family: "Raleway", sans-serif;
-  color: #484349;
 }
-h1,
-h2 {
+
+h1,h2 {
   font-family: "Staatliches", cursive;
   text-align: center;
+  margin-bottom: 4%;
 }
-h1 {
-  font-size: 3.2rem;
-}
+
+
+
 h2 {
   font-size: 2.8rem;
 }
 h3 {
   text-align: left;
-  font-family: "Raleway", sans-serif;
   font-size: 2rem;
 }
 a {
@@ -69,24 +68,25 @@ p {
 
 /** botones **/
 .btn {
-  padding: 1rem 4rem;
+  padding: 0.5rem 1rem;
   text-align: center;
   font-weight: 700;
   font-size: 1.3rem;
   border: none;
-  background-color: transparent;
   color: white;
   width: 100%;
   display: block;
   flex: 0 0 100%;
   border-radius: 50px;
 }
+
 @media (min-width: 768px) {
-  .btn {
-    width: auto;
-    display: inline-block;
-    flex: 0 0 auto;
+  
+
+  .volver{
+   width: 10%;
   }
+
   .btn-revisar {
     width: auto;
     display: inline-block;
@@ -95,65 +95,6 @@ p {
 }
 .btn:hover {
   cursor: pointer;
-}
-.btn-amarillo {
-  background-color: #ff8000;
-}
-.btn-amarillo:hover {
-  background-color: #ff8000;
-  color: white;
-}
-.btn-rosa {
-  background-color: #b8336a;
-}
-.btn-rosa:hover {
-  background-color: #b8336a;
-  color: white;
-}
-.btn-azul {
-  background-color: #068d9d;
-}
-.btn-azul:hover {
-  background-color: #068d9d;
-  color: white;
-}
-.btn-naranja {
-  background-color: #e4572e;
-}
-.btn-naranja:hover {
-  background-color: #e4572e;
-  color: white;
-}
-.btn-verde {
-  background-color: #688e26;
-}
-.btn-verde:hover {
-  background-color: #688e26;
-  color: white;
-}
-.btn-azul2 {
-  background-color: #0f4c5c;
-}
-.btn-azul2:hover {
-  background-color: #0f4c5c;
-  color: white;
-}
-.btn-rojo {
-  background-color: #92140c;
-}
-.btn-rojo:hover {
-  background-color: #92140c;
-  color: white;
-}
-
-.btn-primary {
-  background-color: #3f00d3;
-  margin-left: 3%;
-  text-align: center;
-}
-
-.btn-primary:hover {
-  background-color: #3f00d3;
 }
 
 .badge-danger {
@@ -303,9 +244,9 @@ form textarea {
   appearance: none;
   background-color: white;
   border-radius: 0;
-  color: #888888;
+  color: #000000;
   border: 1px solid #a8a6a8;
-  padding: 1.1rem;
+  padding: 0.7rem;
   margin-bottom: 2rem;
   border-radius: 25px;
 }

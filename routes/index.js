@@ -188,12 +188,20 @@ module.exports = function () {
     adminControllers.publicarPeli
   );
 
+ 
   router.get(
     "/corregir/:id",
     protegerRuta,
     protegerRutaAdmin,
     adminControllers.corregirPeli
   );
+
+  router.get(
+    "/pelisSinRevisar",
+    protegerRuta,
+    adminControllers.pelisNoRevisadas
+  );
+
   //Perfil
   router.get("/perfil/:id", protegerRuta, perfilController.perfil);
   //EditarPerfil

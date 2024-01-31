@@ -1,0 +1,36 @@
+<main class="contenedor panel-administracion">
+    <div class="seccion-admin">
+      <% if (peliculas.length > 0) { %>
+      <h2>Peliculas a revisar</h2>
+      <ul>
+        < <% peliculas.forEach(peli => { %>
+  
+        <li>
+          <div class="informacion-admin">
+            <a href="/pelicula/<%= peli.slug %>" target="_blank">
+              <h3><%= peli.titulo %></h3>
+            </a>
+          </div>
+          <div class="acciones contenedor-botones">
+            <a href="/editarPelicula/<%= peli.id %>" class="btn btn-amarillo"
+              >Editar Pelicula</a
+            >
+            <a href="/eliminarPelicula/<%= peli.id %>" class="btn btn-rojo"
+                >Eliminar Pelicula</a
+              >
+          </div>
+        </li>
+  
+        <% }) %>
+      </ul>
+      <%- include('partials/paginacion.ejs') %> <% } else { %>
+  
+      <h2>No tienes peliculas para revisar</h2>
+  
+      <% } %>
+      <button onclick="location.href = '/administracion'" class="btn btn-info volver">
+        Volver
+      </button>
+    </div>
+  </main>
+  

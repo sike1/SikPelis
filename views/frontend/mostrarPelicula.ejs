@@ -22,7 +22,7 @@
                         <p>Escrito por: <%= comentario.usuario.nombre %></p>
                         <% if(comentario.usuario.id === usuario.id || usuario.id === pelicula.usuarioId) {%>
                         <form action="/eliminarComentario/<%= comentario.id%>" method="POST" class="eliminarComentario">
-                                <input type="submit" class="btn btn-azul" value="Eliminar">
+                                <input type="submit" class="btn btn-danger btn-sm" value="Eliminar">
                                 <input type="hidden" >
                         </form>
                         <% } %>
@@ -40,7 +40,7 @@
                         <textarea name="mensaje" placeholder="Introduce aqui tu comentario"></textarea>
                     </div>
                     <div class="campo enviar">
-                        <input type="submit" value="Enviar" class="btn btn-rosa">
+                        <input type="submit" value="Enviar" class="btn btn-success">
                     </div>
                 </form>
             

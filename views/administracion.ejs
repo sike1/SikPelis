@@ -2,26 +2,25 @@
   <h1><%= pagina %></h1>
 
   <div class="contenedor-botones">
-    <a href="/nuevaPelicula" class="btn btn-rosa">Añadir pelicula</a>
-    <% if (usuario.superAdmin === 1) { %>
-    <a href="/nuevoAdmin" class="btn btn-azul2">Hacer administrador</a>
-    <a href="/noAdmin" class="btn btn-naranja">Quitar administrador</a>
-    <button
-      type="button"
-      id="revisar"
-      class="btn btn-primary position-relative"
-    >
-      Revisar Peliculas <% if (revisar != 0) { %>
-      <span
-        class="position-absolute top-0 start-100 translate-middle badge rounded-pill badge-danger"
-      >
-        <%= revisar %>
-        <span class="visually-hidden">unread messages</span>
-      </span>
-      <% } %>
-    </button>
-
-    <% } %>
+    
+    <div class="dropdown">
+      <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        Administración
+      </button>
+      <ul class="dropdown-menu">
+        <li><a href="/nuevaPelicula" class="fw-bold dropdown-item ">Nueva Pelicula</a></li>
+        <li><a href="/pelisSinRevisar" class="fw-bold dropdown-item">Mis peliculas sin revisar</a></li>
+        <% if (usuario.superAdmin === 1) { %>
+          <div class="dropdown-divider"></div>
+          <li><a href="/nuevoAdmin" class="fw-bold dropdown-item">Hacer administrador</a></li>
+          <li><a href="/noAdmin" class="fw-bold dropdown-item">Quitar administrador</a></li>
+          <li><a href="/revisarPelis" class="fw-bold dropdown-item">Revisar Peliculas <% if (revisar != 0) { %>
+            <span class="badge rounded-pill badge-danger" ><%= revisar %></span>
+          <% } %>
+          </a></li>
+        <% } %>
+      </ul>
+    </div>
   </div>
 
   <div class="seccion-admin">
@@ -36,10 +35,10 @@
           </a>
         </div>
         <div class="acciones contenedor-botones">
-          <a href="/editarPelicula/<%= peli.id %>" class="btn btn-verde"
+          <a href="/editarPelicula/<%= peli.id %>" class="btn btn-success"
             >Editar</a
           >
-          <a href="/eliminarPelicula/<%= peli.id %>" class="btn btn-rojo"
+          <a href="/eliminarPelicula/<%= peli.id %>" class="btn btn-danger"
             >Eliminar</a
           >
         </div>
@@ -48,11 +47,5 @@
     </ul>
   </div>
   <%- include('partials/paginacion.ejs') %>
-  <div class="seccion-admin">
-    <h1>Peliculas pendientes de revisión</h1>
-    <div id="contenedor">
-      
-    <ul id="lista"></ul>
-
-  </div>
+  
 </main>

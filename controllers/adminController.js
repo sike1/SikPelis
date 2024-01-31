@@ -206,3 +206,46 @@ exports.corregirPeli = async (req, res) => {
     console.log(error);
   }
 };
+
+
+exports.pelisNoRevisadas = async (req, res) => {
+  const { pagina: paginaActual } = req.query;
+
+  const expresion = /^[1-9]$/;
+
+  if (!expresion.test(paginaActual)) {
+    return res.redirect("/pelisSinRevisar?pagina=1");
+  }
+
+  try {
+    //limites y offset
+    const limit = 4;
+
+    const offset = paginaActual * limit - limit;
+
+    const [peliculas, total] = await Promise.all([
+      Peliculas.findAll({
+        limit,
+        offset,
+        where: { revisado: 0,
+                 usuarioId: req.usuario.id 
+                },
+      }),
+      Peliculas.count({
+        where: {
+          revisado: 0,
+        },
+      }),
+    ]);
+    res.render("pelisSinRevisar", {
+      pagina: "Peliculas sin revisar",
+      usuario: req.usuario,
+      peliculas,
+      paginas: Math.ceil(total / limit),
+      paginaActual,
+      sitio: "pelisSinRevisar",
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};

@@ -5,12 +5,11 @@ const shortId = require("shortid");
 
 exports.formIniciarSesion = (req, res) => {
   res.render("inicioSesion", {
-    pagina: "Iniciar Sesion",
+    pagina: "Iniciar Sesión",
   });
 };
 
 exports.iniciarSesion = async (req, res) => {
-  7;
 
   //Validamos los campos
   req.checkBody("email", "El email no puede ir vacío").notEmpty();
@@ -66,9 +65,13 @@ exports.iniciarSesion = async (req, res) => {
   }
 };
 
+
+
+
 //Formulario para cambiar la contraseña
 exports.formCambiarPassword = (req, res) => {
   res.render("cambiarPassword", {
+    usuario: req.usuario,
     pagina: "Cambiar Contraseña",
   });
 };
@@ -115,10 +118,14 @@ exports.cambiarPassword = async (req, res) => {
   return res.clearCookie("_token").redirect("/");
 };
 
+
+
+
+
 //olvido de password
 exports.formOlvidePassword = (req, res) => {
   res.render("olvidePassword", {
-    pagina: "Olvidaste tu Password",
+    pagina: "Olvidaste tu Contraseña",
   });
 };
 

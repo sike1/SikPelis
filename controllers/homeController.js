@@ -13,7 +13,7 @@ exports.home = async (req, res) => {
     order: [["estreno", "DESC"]],
   });
 
-  res.render("home", {
+  res.render("frontend/home", {
     pagina: "Incio",
     usuario: req.usuario,
     generos,

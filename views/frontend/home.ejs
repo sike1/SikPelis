@@ -9,7 +9,7 @@
                     <option value="<%= genero.id %>"><%= genero.nombre %></option>
                     <% }) %>
             </select>
-            <input type="submit" value="Buscar" class="btn btn-rosa">
+            <input type="submit" value="Buscar" class="btn btn-info">
         </form>
     </div>
 </div>
@@ -19,7 +19,7 @@
     <div class="grid columnas-md-3 " style="margin-right: 50%;">
         <% if(peliculas.length > 0){ %>
             <% peliculas.forEach(peli => { %>
-                <%- include ("partials/cardPelis.ejs", {peli : peli}) %>   
+                <%- include ("../partials/cardPelis.ejs", {peli : peli}) %>   
             <% }) %>
         <% } %>
     </div>

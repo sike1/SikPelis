@@ -12,7 +12,7 @@
           </a>
         </div>
         <div class="acciones contenedor-botones">
-          <a href="/revisarPeli/<%= peli.id %>" class="btn btn-verde"
+          <a href="/revisarPeli/<%= peli.id %>" class="btn btn-success"
             >Revisar</a
           >
         </div>
@@ -22,10 +22,10 @@
     </ul>
     <%- include('partials/paginacion.ejs') %> <% } else { %>
 
-    <h2>No hay pelicuas para revisar</h2>
+    <h2>No hay peliculas para revisar</h2>
 
     <% } %>
-    <button onclick="location.href = '/administracion'" class="btn btn-azul">
+    <button onclick="location.href = '/administracion'" class="btn btn-info volver">
       Volver
     </button>
   </div>
