@@ -3,6 +3,7 @@ const path = require("path");
 const bodyParser = require("body-parser");
 const flash = require("connect-flash");
 const session = require("express-session");
+const MemoryStore = require('memorystore')(session)
 const cookieParser = require("cookie-parser");
 const expressLayouts = require("express-ejs-layouts");
 require("dotenv").config({ path: "variables.env" });
@@ -44,15 +45,17 @@ app.set("views", path.join(__dirname, "./views"));
 app.use(cookieParser());
 
 //crear La sesion
-app.use(
-  session({
-    secret: process.env.SECRET,
-    key: process.env.KEY,
-    resave: false,
-    saveUninitialized: false,
-  })
-);
 
+app.use(session({
+  cookie: { maxAge: 86400000 },
+  store: new MemoryStore({
+    checkPeriod: 86400000 
+  }),
+  key: process.env.KEY,
+  resave: false,
+  secret: process.env.SECRET,
+  saveUninitialized: false
+}))
 //agrega flash
 app.use(flash());
 
