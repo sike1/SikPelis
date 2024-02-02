@@ -1,8 +1,8 @@
-<main class="contenido-evento">
+<main class="contenido-peli">
     <div class="contenedor">
-        <div class="informacion-evento">
+        <div class="informacion-peli">
             <div class="descripcion">
-                    <img src="/uploads/carteles/<%= pelicula.imagen %>" width="50%">
+                    <img src="/uploads/carteles/<%= pelicula.imagen %>" class="rounded-5 w-50">
                 <p style="font-weight: bold">Sinopsis:</p>
                 <p style="text-align: justify;"><%= pelicula.sinopsis %></p>
                 <div class="comentarios">
@@ -58,7 +58,7 @@
                 <% if (pelicula.trailer) { %> 
                     <p style="font-weight: bold"><a href="<%= pelicula.trailer %>" target="_blank">Ver trailer</a></p>
                 <% } else { %>
-                    <p style="font-weight: bold">No hay Trailer</p> 
+                    <p style="font-weight: bold">Trailer no disponible</p> 
                 <% } %>
 
                 <% const existe = usuario.pelisFavs.includes(pelicula.id)%>
@@ -73,6 +73,9 @@
                     <% } %>
                 </form>
             </div>
+
+        </aside>
+        <aside>
         </aside>
     </div>
 </main>

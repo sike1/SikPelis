@@ -8,7 +8,6 @@ const multer = require("multer");
 const moment = require("moment");
 const fs = require("fs");
 const Sequelize = require("sequelize");
-const { render } = require("ejs");
 
 //configuracion multer
 const configuracionMulter = {

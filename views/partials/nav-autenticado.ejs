@@ -1,2 +1,17 @@
-<a href="/perfil/<%= usuario.id %>">Hola, <%= usuario.nombre %></a>
-<a href="/cerrarSesion" class="fw-bold">Cerrar Sesión</a>
+<div class="dropdown">
+    <a class="dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        Hola, <%= usuario.nombre %>
+    </a>
+    <ul class="dropdown-menu">
+      <li><a href="/perfil/<%= usuario.id %>" class="fw-bold dropdown-item ">Perfil</a></li>
+      <li><a href="/cerrarSesion" class="fw-bold dropdown-item">Cerrar Sesión</a></li>
+      <% if (usuario.admin === 1) { %>
+        <div class="dropdown-divider"></div>
+        <li><a href="/administracion" class="fw-bold dropdown-item">Administración</a></li>
+      <% } %>
+      
+    </ul>
+  </div>
+
+
+

@@ -35,9 +35,8 @@ exports.administracion = async (req, res) => {
         },
       }),
     ]);
-
     res.render("administracion", {
-      pagina: "Panel de administracion",
+      pagina: "Panel de administración",
       peliculas,
       moment,
       usuario: req.usuario,
@@ -151,7 +150,8 @@ exports.mostrarPelisParaRevisar = async (req, res) => {
 //Muestro toda la informacion de la pelicula a revisar
 exports.revisarPelicula = async (req, res) => {
   const pelicula = await Peliculas.findByPk(req.params.id);
-
+  
+console.log(pelicula)
   res.render("mostrarPeliculaRe", {
     pagina: pelicula.titulo,
     usuario: req.usuario,
@@ -159,7 +159,6 @@ exports.revisarPelicula = async (req, res) => {
     moment,
   });
 };
-
 //Si esta todo bien publico la pelicula
 exports.publicarPeli = async (req, res) => {
   const pelicula = await Peliculas.findByPk(req.params.id);

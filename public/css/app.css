@@ -24,6 +24,7 @@ h2 {
 h3 {
   text-align: left;
   font-size: 2rem;
+  color: black;
 }
 a {
   text-decoration: none;
@@ -73,7 +74,6 @@ p {
   font-weight: 700;
   font-size: 1.3rem;
   border: none;
-  color: white;
   width: 100%;
   display: block;
   flex: 0 0 100%;
@@ -83,9 +83,6 @@ p {
 @media (min-width: 768px) {
   
 
-  .volver{
-   width: 10%;
-  }
 
   .btn-revisar {
     width: auto;
@@ -147,7 +144,6 @@ p {
 .card .fecha,
 .informacion-admin .fecha {
   font-size: 0.8rem;
-  text-transform: capitalize;
 }
 .card p {
   margin: 0;
@@ -195,8 +191,13 @@ nav.nav a {
 nav.nav a:first-child {
   color: #b8336a;
   font-weight: 700;
-  border-right: 1px solid #e6e6e6;
 }
+.dropdown-item:active{
+  background: none;
+  border: none;
+  color: #000000;
+}
+
 
 /** hero **/
 .hero {
@@ -362,7 +363,6 @@ main.contenedor-formularios {
 }
 .campo.enviar {
   justify-content: flex-end;
-  padding-top: 2rem;
 }
 .default-form .campo label {
   flex: 0 0 120px;
@@ -502,6 +502,9 @@ trix-toolbar .trix-button--icon-strike {
 .acciones.contenedor-botones {
   width: 100%;
 }
+.acciones2.contenedor-botones {
+  width: 25%;
+}
 
 /** Single Eventos **/
 
@@ -515,7 +518,7 @@ trix-toolbar .trix-button--icon-strike {
     justify-content: space-between;
   }
 }
-.resumen-evento h1 {
+.resumen-peli h1 {
   font-family: "Raleway", sans-serif;
   text-align: left;
   font-size: 2rem;
@@ -542,20 +545,20 @@ trix-toolbar .trix-button--icon-strike {
 .opciones-asistencia a:first-of-type {
   margin-right: 2rem;
 }
-.contenido-evento {
+.contenido-peli {
   background-color: #f2f2f2;
   padding: 5rem 0;
 }
 @media (min-width: 768px) {
-  .contenido-evento .contenedor {
+  .contenido-peli .contenedor {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
   }
-  .contenido-evento .informacion-evento {
+  .contenido-peli .informacion-peli {
     flex: 0 0 60%;
   }
-  .contenido-evento .informacion {
+  .contenido-peli .informacion {
     flex: 0 0 calc(40% - 2rem);
   }
 }
@@ -602,28 +605,25 @@ trix-toolbar .trix-button--icon-strike {
 }
 
 /** Sidebar **/
-.contenido-evento aside {
+.contenido-peli aside {
   background-color: white;
   border: 1px solid #c7c7c7;
 }
-.contenido-evento aside > div {
+.contenido-peli aside > div {
   padding: 1rem 0 1rem 5rem;
   background-size: 50px;
   background-position: center left;
   background-repeat: no-repeat;
   margin: 2rem;
 }
-.contenido-evento aside p {
+.contenido-peli aside p {
   margin: 0;
 }
 
 aside .fecha {
-  background-image: url(../img/icono-hora.svg);
   margin-bottom: 2rem;
 }
-aside .ubicacion {
-  background-image: url(../img/icono-ubicacion.svg);
-}
+
 aside img {
   display: block;
 }
@@ -669,4 +669,8 @@ aside img {
 .bg-gris {
   background-color: #888888;
   border-color: gray;
+}
+
+.corregir{
+  width: 100%;
 }

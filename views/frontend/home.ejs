@@ -16,7 +16,7 @@
 <h2>Próximos estrenos</h2>
 <div class="contenedor">
     <% moment.locale("es");%>
-    <div class="grid columnas-md-3 " style="margin-right: 50%;">
+    <div class="grid columnas-md-3 ms-5" style="margin-right: 50%;">
         <% if(peliculas.length > 0){ %>
             <% peliculas.forEach(peli => { %>
                 <%- include ("../partials/cardPelis.ejs", {peli : peli}) %>   
@@ -26,9 +26,9 @@
 </div>
 
 <h2>Encuentra Peliculas por Genero</h2>
-<main class="bg-gris categorias">
+<main class="bg-gris categorias ">
     <div class="contenedor">
-        <ul class="listado-categorias  grid columnas-2 columnas-md-3">
+        <ul class="listado-categorias  grid columnas-2 columnas-md-3 ms-5">
             <% generos.forEach(genero => { %>
                 <li>
                     <a href="/genero/<%= genero.slug %>">

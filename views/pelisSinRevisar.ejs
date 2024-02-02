@@ -3,7 +3,7 @@
       <% if (peliculas.length > 0) { %>
       <h2>Peliculas a revisar</h2>
       <ul>
-        < <% peliculas.forEach(peli => { %>
+        <% peliculas.forEach(peli => { %>
   
         <li>
           <div class="informacion-admin">
@@ -12,10 +12,10 @@
             </a>
           </div>
           <div class="acciones contenedor-botones">
-            <a href="/editarPelicula/<%= peli.id %>" class="btn btn-amarillo"
+            <a href="/editarPelicula/<%= peli.id %>" class="btn btn-primary"
               >Editar Pelicula</a
             >
-            <a href="/eliminarPelicula/<%= peli.id %>" class="btn btn-rojo"
+            <a href="/eliminarPelicula/<%= peli.id %>" class="btn btn-danger"
                 >Eliminar Pelicula</a
               >
           </div>
@@ -28,9 +28,9 @@
       <h2>No tienes peliculas para revisar</h2>
   
       <% } %>
-      <button onclick="location.href = '/administracion'" class="btn btn-info volver">
+      <a href = "/administracion" class="btn btn-info w-25">
         Volver
-      </button>
+      </a>
     </div>
   </main>
   
