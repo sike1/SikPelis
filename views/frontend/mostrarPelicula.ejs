@@ -3,8 +3,7 @@
         <div class="informacion-peli">
             <div class="descripcion">
                     <img src="/uploads/carteles/<%= pelicula.imagen %>" class="rounded-5 w-50">
-                <p style="font-weight: bold">Sinopsis:</p>
-                <p style="text-align: justify;"><%= pelicula.sinopsis %></p>
+                <p style="text-align: justify; margin-top: 2rem;"><%= pelicula.sinopsis %></p>
                 <div class="comentarios">
             <h2>Comentarios</h2>
         <% if (comentarios.length > 0) { %>
@@ -46,8 +45,8 @@
             
         </div><!--comentarios-->
             </div><!--descripcion-->   
-        </div><!--Info evento-->
-        <aside class="informacion">
+        </div><!--Info peli-->
+        <aside class="informacion rounded-4">
             <% moment.locale("es");%>
             <div class="fecha">
                 <p style="font-weight: bold">Estreno:</p>
@@ -56,27 +55,25 @@
                 <p><%= pelicula.duracion %> min.</p>
 
                 <% if (pelicula.trailer) { %> 
-                    <p style="font-weight: bold"><a href="<%= pelicula.trailer %>" target="_blank">Ver trailer</a></p>
+                    <p class="fw-bold"><a href="<%= pelicula.trailer %>" target="_blank">Ver trailer</a></p>
                 <% } else { %>
-                    <p style="font-weight: bold">Trailer no disponible</p> 
+                    <p class="fw-bold">Trailer no disponible</p> 
                 <% } %>
 
                 <% const existe = usuario.pelisFavs.includes(pelicula.id)%>
-
-                <form action="/pelicula/<%= pelicula.slug %>" method="post" id="fav">
+                <form action="/pelicula/<%= pelicula.slug %>" method="post" id="fav" class="mt-3">
                     <% if (existe) { %>
                         <input type="hidden" id="accion" value="quitar">
-                        <input type="submit" class="btn-fav-rojo" value="Quitar de favoritos"> 
+                        <input type="submit" class="btn-fav-rojo btn btn-danger" value="Quitar de favoritos"> 
                     <% } else { %>
                         <input type="hidden" id="accion" value="favorito">
-                        <input type="submit" class="btn-fav" value="Añadir a favoritos">
+                        <input type="submit" class="btn-fav btn btn-primary" value="Añadir a favoritos">
                     <% } %>
                 </form>
             </div>
 
         </aside>
-        <aside>
-        </aside>
+
     </div>
 </main>
 

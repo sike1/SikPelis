@@ -4,9 +4,18 @@
   <div class="contenedor-botones">
     
     <div class="dropdown">
-      <a class="btn btn-primary dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-        Administración
-      </a>
+      <% if (revisar !== 0) { %>
+        <a type="button" class="btn btn-primary dropdown-toggle position-relative" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          Administración
+          <span class="position-absolute top-0 start-100 translate-middle p-2 bg-danger border border-light rounded-circle">
+            <span class="visually-hidden">New alerts</span>
+          </span>
+        </a>
+      <% } else { %>
+        <a class="btn btn-primary dropdown-toggle position-relative" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          Administración
+        </a>
+      <% } %>
       <ul class="dropdown-menu">
         <li><a href="/nuevaPelicula" class="fw-bold dropdown-item ">Nueva Pelicula</a></li>
         <li><a href="/pelisSinRevisar" class="fw-bold dropdown-item">Mis peliculas sin revisar</a></li>
@@ -21,10 +30,11 @@
         <% } %>
       </ul>
     </div>
+    
   </div>
 
-  <div class="seccion-admin">
-    <h2>Peliculas</h2>
+  <div class="seccion-admin contenedor">
+    <h2>Películas</h2>
     <ul>
       <% peliculas.forEach(peli => { %>
 

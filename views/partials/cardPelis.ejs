@@ -1,12 +1,12 @@
 
-<div class="card">
+<div class="card rounded-4">
     <div class="card-texto">
         <a href="/pelicula/<%= peli.slug %>">
             <img class="rounded-4" src="/uploads/carteles/<%= peli.imagen %>" >
             <h3><%= peli.titulo %></h3>
         </a>
             <div class="informacion">
-                <p class="fecha">Estreno: <%= moment(peli.estreno).format("LL") %></p>
+                <p class="fecha">Estreno: <%= moment(peli.estreno).format("ll") %></p>
             </div>
     
 

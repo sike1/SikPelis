@@ -4,7 +4,7 @@
    
         <div class="campo">
             <label>Titulo </label>
-            <input type="text" name="titulo" placeholder="Titulo">
+            <input type="text" class="form-control" name="titulo" placeholder="Titulo">
         </div>
         <div class="campo">
             <label>Fecha de estreno: </label>
@@ -16,7 +16,7 @@
         </div>
         <div class="campo">
             <label>Cartel </label>
-            <input type="file" name="imagen" >
+            <input type="file" name="imagen" id="file" class="form-control rounded-4" >
         </div>
         <div class="campo">
             <label>Duración </label>
@@ -24,7 +24,7 @@
         </div>
         <div class="campo">
             <label>Genero </label>
-             <select name="generoId">
+             <select class="form-select" name="generoId">
                 <option value="" disabled selected>-- Selecciona Genero --</option>
                 <% if(generos.length > 0 )  { %>
                     <% generos.forEach(genero => { %>

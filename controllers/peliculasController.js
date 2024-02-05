@@ -58,7 +58,7 @@ exports.formNuevaPelicula = async (req, res) => {
   const generos = await Generos.findAll({ order: [["id", "ASC"]] });
 
   res.render("nuevaPelicula", {
-    pagina: "Nueva pelicula",
+    pagina: "Nueva película",
     generos,
     usuario: req.usuario,
   });
@@ -97,6 +97,7 @@ exports.nuevaPelicula = async (req, res, next) => {
 
   req.flash("exito", "Pelicula insertada, a la esperando a ser revisada");
   res.redirect("/administracion");
+
 };
 
 //mostrar peliculas

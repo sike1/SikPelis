@@ -24,12 +24,20 @@ function addFav(e){
         document.querySelector("#accion").value = "quitar"
         btn.value="Quitar de favoritos"
         btn.classList.remove("btn-fav")
+        btn.classList.remove("btn")
+        btn.classList.remove("btn-primary")
         btn.classList.add("btn-fav-rojo")
+        btn.classList.add("btn")
+        btn.classList.add("btn-danger")
        }else{
         document.querySelector("#accion").value = "favorito"
         btn.value="Añadir a favoritos"
         btn.classList.remove("btn-fav-rojo")
+        btn.classList.remove("btn")
+        btn.classList.remove("btn-danger")
         btn.classList.add("btn-fav")
+        btn.classList.add("btn")
+        btn.classList.add("btn-primary")
        }
     })
 }

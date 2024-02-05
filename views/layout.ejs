@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700;900&family=Staatliches&family=Ubuntu:wght@300;400&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/b099bd5eaf.js" crossorigin="anonymous"></script>
@@ -11,7 +11,7 @@
 
     <title>SikePelis-<%= pagina %></title>
 </head>
-<body>
+<body class="ms-3 me-3">
     <header class="site-header contenedor">
         <a href="<%= !usuario.id ? "/" : "/home"  %>">
             <img src="/img/logo.png" width="250px">
@@ -26,6 +26,7 @@
     </header>
     <% if(locals.mensajes){ %>
         <% const categoria = Object.keys(locals.mensajes) %>
+        <p><%= categoria %></p>
         <% if(categoria.length){ %>
             <% locals.mensajes[categoria].forEach(alerta => { %>
                 <div class="alertas">
