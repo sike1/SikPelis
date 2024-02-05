@@ -576,5 +576,8 @@ aside img {
   width: 100%;
 }
 
+.file{
+  border-radius: none;
+}
 
 

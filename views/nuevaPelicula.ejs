@@ -16,7 +16,7 @@
         </div>
         <div class="campo">
             <label>Cartel </label>
-            <input type="file" name="imagen" id="file" class="form-control rounded-4" >
+            <input type="file" name="imagen" class="file" >
         </div>
         <div class="campo">
             <label>Duración </label>
@@ -24,7 +24,7 @@
         </div>
         <div class="campo">
             <label>Genero </label>
-             <select class="form-select" name="generoId">
+             <select name="generoId">
                 <option value="" disabled selected>-- Selecciona Genero --</option>
                 <% if(generos.length > 0 )  { %>
                     <% generos.forEach(genero => { %>
