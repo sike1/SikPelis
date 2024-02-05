@@ -26,7 +26,6 @@
     </header>
     <% if(locals.mensajes){ %>
         <% const categoria = Object.keys(locals.mensajes) %>
-        <p><%= categoria %></p>
         <% if(categoria.length){ %>
             <% locals.mensajes[categoria].forEach(alerta => { %>
                 <div class="alertas">
