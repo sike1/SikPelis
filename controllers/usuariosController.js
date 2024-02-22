@@ -19,6 +19,7 @@ exports.crearCuenta = async (req, res) => {
     .equals(req.body.password);
   // Leer los errores de express
   const erroresExpress = req.validationErrors();
+  console.log(req.body)
 
   // Comprobar si hay errores de validación antes de crear el usuario
   if (erroresExpress) {

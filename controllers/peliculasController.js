@@ -169,7 +169,10 @@ exports.editarPelicula = async (req, res) => {
   }
 
   await pelicula.save();
+
+
   req.flash("exito", "Pelicula actualizada");
+
   res.redirect("/administracion");
 };
 
@@ -193,15 +196,15 @@ exports.formEliminarPelicula = async (req, res, next) => {
 exports.eliminarPelicula = async (req, res) => {
   const pelicula = await Peliculas.findByPk(req.params.id);
 
-  if(pelicula.imagen){
-    const imagenAnteriorPath = __dirname +`/../public/uploads/carteles/${pelicula.imagen}`
-      //eliminar archivo cn fs
-      fs.unlink(imagenAnteriorPath, (error)=> {
-          if(error){
-              console.log(error)
-          }
-          return
-      })
+  if (pelicula.imagen) {
+    const imagenAnteriorPath = __dirname + `/../public/uploads/carteles/${pelicula.imagen}`
+    //eliminar archivo cn fs
+    fs.unlink(imagenAnteriorPath, (error) => {
+      if (error) {
+        console.log(error)
+      }
+      return
+    })
   }
 
   await pelicula.destroy();

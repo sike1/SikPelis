@@ -49,25 +49,28 @@ app.use(cookieParser());
 app.use(session({
   cookie: { maxAge: 86400000 },
   store: new MemoryStore({
-    checkPeriod: 86400000 
+    checkPeriod: 86400000
   }),
   key: process.env.KEY,
   resave: false,
   secret: process.env.SECRET,
   saveUninitialized: false
 }))
+
 //agrega flash
 app.use(flash());
+
+//Middleware
+app.use((req, res, next) => {
+  res.locals.usuario = { ...req.usuario } || null;
+  res.locals.mensajes = req.flash();
+  next();
+});
 
 //archivos estaticos
 app.use(express.static("public"));
 
-//Middleware
-app.use((req, res, next) => {
-  res.locals.mensajes = req.flash();
-  res.locals.usuario = { ...req.usuario } || null;
-  next();
-});
+
 
 //Routing
 app.use("/", router());

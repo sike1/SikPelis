@@ -9,7 +9,7 @@ exports.home = async (req, res) => {
   const generos = await Generos.findAll({ order: [["id", "ASC"]] });
   const peliculas = await Peliculas.findAll({
     limit: 4,
-    where: { estreno: { [Op.gte]: moment(new Date()).format("YYYY-MM-DD") },revisado: 1 },
+    where: { estreno: { [Op.gte]: moment(new Date()).format("YYYY-MM-DD") }, revisado: 1 },
     order: [["estreno", "DESC"]],
   });
 
@@ -54,10 +54,10 @@ exports.busqueda = async (req, res) => {
           limit,
           offset,
           order: [["estreno", "DESC"]],
-          where: { titulo: { [Op.iLike]: "%" + titulo + "%" },revisado: 1 },
+          where: { titulo: { [Op.iLike]: "%" + titulo + "%" }, revisado: 1 },
         }),
         Peliculas.count({
-          where: { titulo: { [Op.iLike]: "%" + titulo + "%" },revisado: 1 },
+          where: { titulo: { [Op.iLike]: "%" + titulo + "%" }, revisado: 1 },
         }),
       ]);
     } else {
@@ -103,7 +103,6 @@ exports.busquedaGenero = async (req, res) => {
   const { slug } = req.params;
   const { pagina: paginaActual } = req.query;
   const expresion = /^[1-9]$/;
-
   try {
     const limit = 8;
     const offset = paginaActual * limit - limit;
@@ -119,7 +118,7 @@ exports.busquedaGenero = async (req, res) => {
         offset,
         order: [["estreno", "DESC"]],
         where: { generoId: genero.id, revisado: 1 },
-        
+
       }),
       Peliculas.count({ where: { generoId: genero.id, revisado: 1 } }),
     ]);
