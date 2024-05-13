@@ -4,9 +4,11 @@
         <form action="/busqueda">
             <input type="text" name="titulo" placeholder="Titulo Pelicula">
             <select name="genero">
-                    <option value=""  selected>-- Selecciona Genero --</option>
-                    <% generos.forEach(genero => { %>
-                    <option value="<%= genero.id %>"><%= genero.nombre %></option>
+                <option value="" selected>-- Selecciona Genero --</option>
+                <% generos.forEach(genero=> { %>
+                    <option value="<%= genero.id %>">
+                        <%= genero.nombre %>
+                    </option>
                     <% }) %>
             </select>
             <input type="submit" value="Buscar" class="btn btn-info">
@@ -16,26 +18,28 @@
 <h2>Próximos estrenos</h2>
 <div class="contenedor">
     <% moment.locale("es");%>
-    <div class="grid columnas-md-3 ms-5" style="margin-right: 50%;">
-        <% if(peliculas.length > 0){ %>
-            <% peliculas.forEach(peli => { %>
-                <%- include ("../partials/cardPelis.ejs", {peli : peli}) %>   
-            <% }) %>
-        <% } %>
-    </div>
+        <div class="grid columnas-md-3 ms-5" style="margin-right: 50%;">
+            <% if(peliculas.length> 0){ %>
+                <% peliculas.forEach(peli=> { %>
+                    <%- include ("../partials/cardPelis.ejs", {peli : peli}) %>
+                        <% }) %>
+                            <% } %>
+        </div>
 </div>
 
 <h2>Encuentra Peliculas por Genero</h2>
 <main class="bg-gris categorias">
     <div class="contenedor">
         <ul class="listado-categorias  grid columnas-2 columnas-md-3 ms-5">
-            <% generos.forEach(genero => { %>
-                <li>
+            <% generos.forEach(genero=> { %>
+                <li id="gen" class="rounded-pill text-center bg-image hover-zoom">
                     <a href="/genero/<%= genero.slug %>">
                         <!--<img src="/img/genero_<%# genero.id %>.png">-->
-                        <p><%= genero.nombre %></p>
+                        <p>
+                            <%= genero.nombre %>
+                        </p>
                     </a>
                 </li>
-            <% }) %>
+                <% }) %>
     </div>
 </main>

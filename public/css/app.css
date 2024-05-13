@@ -580,4 +580,12 @@ aside img {
   border-radius: none;
 }
 
+#gen {
+  transition: transform .2s; /* Animation */
+  margin: 0 auto;
+}
+
+#gen:hover {
+  transform: scale(1.1); 
+}
 
